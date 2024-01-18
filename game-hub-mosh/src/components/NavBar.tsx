@@ -1,7 +1,23 @@
-import { HStack } from "@chakra-ui/react";
-
+import { HStack, Image, Text } from "@chakra-ui/react";
+import logo from "../assets/Logo/logo.webp";
 const NavBar = () => {
-  return (<HStack></HStack>;)
+  return (
+    <HStack>
+      <Image src={logo} boxSize="60px" />
+      <Text> NavBar</Text>
+      GameHub
+    </HStack>
+  );
 };
 
 export default NavBar;
+
+//
+
+/*
+
+show me the relative file path of C:\Users\lstem\Documents\Coding_Projects\REACT\GameHubResources 
+if im in                          C:\Users\lstem\Documents\Coding_Projects\REACT\game-hub-mosh\src\components
+
+the relative file path for the two paths above is: ..\..\..\..\GameHubResources
+*/

@@ -1,3 +1,4 @@
+//mapping platform slugs to icons from react-icons
 import {
   FaWindows,
   FaPlaystation,
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const PlatformIconList = ({ platforms }: Props) => {
+  // index signature for iconMap object
   const iconMap: { [key: string]: IconType } = {
     pc: FaWindows,
     playstation: FaPlaystation,

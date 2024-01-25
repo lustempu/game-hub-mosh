@@ -9,7 +9,7 @@ interface FetchResponse <T>{
 
 const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig, deps?: any[]) => {
 
-    const [data, setData] = useState<T[]>([]); // to retrieve the games from the database
+    const [data, setData] = useState<T[]>([]); // to retrieve the games from the database (use generic type to make it reusable)
     const [error, setError] = useState(""); // to display an error message if the games cannot be retrieved
     const [isLoading, setLoading]= useState(false);  //to track the loading state for the gameCard skeleton
 

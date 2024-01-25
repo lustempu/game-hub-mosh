@@ -1,4 +1,4 @@
-import { CanceledError } from "axios";
+import { AxiosRequestConfig, CanceledError } from "axios";
 import { useState, useEffect } from "react";
 import apiClient from "../services/api-client";
 
@@ -7,7 +7,7 @@ interface FetchResponse <T>{
     results: T[];
 }
 
-const useData = <T>(endpoint: string) => {
+const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig, deps?: any[]) => {
 
     const [data, setData] = useState<T[]>([]); // to retrieve the games from the database
     const [error, setError] = useState(""); // to display an error message if the games cannot be retrieved
@@ -19,7 +19,7 @@ const useData = <T>(endpoint: string) => {
         const controller = new AbortController();// to cancel the request if the component is unmounted
         setLoading(true);
       apiClient
-        .get<FetchResponse<T>>(endpoint, {signal: controller.signal})//signal property is used to cancel the request if the component is unmounted
+        .get<FetchResponse<T>>(endpoint, {signal: controller.signal, ...requestConfig})//signal property is used to cancel the request if the component is unmounted
         .then((response) => {setData(response.data.results);
         setLoading(false)})// here we will need to use an TS interface to define the shape of the response object
         .catch((error) => {
@@ -30,7 +30,7 @@ const useData = <T>(endpoint: string) => {
         return () => {// to cancel the request if the component is unmounted 
             controller.abort();
         }
-    }, []);// array of dependecies to make sure that the effect is only run once and not on every re-render
+    }, deps ? [...deps]: []);// array of dependecies to make sure that the effect is only run once and not on every re-render
   return {data, error, isLoading};
 };
 

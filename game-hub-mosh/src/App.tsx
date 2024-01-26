@@ -5,13 +5,20 @@ import GenreList from "./components/GenreList";
 import { Genre } from "./hooks/useGenres";
 import { useState } from "react";
 import PlatformSelector from "./components/PLatformSelector";
-import { Platform } from "./hooks/useGames";
+import { Game, Platform } from "./hooks/useGames";
+
+export interface GameQuery {
+  genre: Genre | null;
+  platform: Platform | null;
+}
 
 function App() {
-  const [selectGenre, setSelectedGenre] = useState<Genre | null>(null); //data to share the state  between components (GenreList and GameGrid)
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
-    null
-  ); //data to share the state between components (PlatformSelector and GameGrid)
+  // const [selectGenre, setSelectedGenre] = useState<Genre | null>(null); //data to share the state  between components (GenreList and GameGrid)
+  // const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
+  //   null
+  // ); //data to share the state between components (PlatformSelector and GameGrid)
+
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery); //data to share the state between components (PlatformSelector and GameGrid)
 
   return (
     <Grid
@@ -27,20 +34,19 @@ function App() {
       <Show above="lg">
         <GridItem area="aside" paddingX={5} borderBlock={1}>
           <GenreList
-            selectedGenre={selectGenre}
-            onSelectGenres={(genre) => setSelectedGenre(genre)}
+            selectedGenre={gameQuery.genre}
+            onSelectGenres={(genre) => setGameQuery({ ...gameQuery, genre })}
           />
         </GridItem>
       </Show>
       <GridItem area="main">
         <PlatformSelector
-          selectedPlatform={selectedPlatform}
-          onSelectPlatform={(platform) => setSelectedPlatform(platform)}
+          selectedPlatform={gameQuery.platform}
+          onSelectPlatform={(platform) =>
+            setGameQuery({ ...gameQuery, platform })
+          }
         />
-        <GameGrid
-          selectedPlatorm={selectedPlatform}
-          selectedGenre={selectGenre}
-        />
+        <GameGrid gameQuery={gameQuery} />
       </GridItem>
     </Grid>
   );

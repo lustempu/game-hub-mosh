@@ -24,9 +24,12 @@ const useGames = (
     {
       params: { 
          genres: gameQuery.genre?.id, 
-         parent_platforms: gameQuery.platform?.id 
+         parent_platforms: gameQuery.platform?.id,
+         ordering: gameQuery.sortOrder
     }},
     [gameQuery]
   );
 
 export default useGames;
+
+

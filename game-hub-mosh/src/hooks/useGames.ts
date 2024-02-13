@@ -14,6 +14,7 @@ export interface Game {
   background_image: string;
   parent_platforms: { platform: Platform }[]; // array of objects that have a platform property, shouldnt have been designed this way
   metacritic: number;
+  rating_top: number;//whole number
 }
 
 const useGames = (
